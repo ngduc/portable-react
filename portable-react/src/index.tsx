@@ -1,22 +1,35 @@
-import React from 'react'
-import styles from './styles.module.css'
-
-// version: 0.2.0 - 04/29/2021
+import React from 'react';
+import styles from './styles.module.css';
 
 type BaseProps = {
-  children?: React.ReactElement[] | React.ReactElement | string
-  className?: string
-  onClick?: () => void
-  isLoading?: boolean
-  style?: object
-}
+  children?: React.ReactElement[] | React.ReactElement | string;
+  className?: string;
+  onClick?: () => void;
+  isLoading?: boolean;
+  style?: object;
+};
+
+/* Icons.IconName */
+export const Icons = {
+  Cross: ({ className }: BaseProps) => (
+    <svg
+          className={`fill-current text-gray-600 ${className}`}
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+        >
+          <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+        </svg>
+  )
+};
 
 /* <Button>label</Button> */
 export type ButtonProps = BaseProps & {
-  type?: 'button' | 'submit' | undefined
-  primary?: boolean
-  width?: number
-}
+  type?: 'button' | 'submit' | undefined;
+  primary?: boolean;
+  width?: number;
+};
 export const Button = ({
   type,
   onClick,
@@ -25,15 +38,15 @@ export const Button = ({
   isLoading,
   primary,
   width,
-  style
+  style,
 }: ButtonProps) => {
   let cn =
-    'mt-3 w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm'
+    'mt-3 w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm';
   if (primary) {
-    cn = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm`
+    cn = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm`;
   }
   return (
-    <span className='inline-flex items-center'>
+    <span className="inline-flex items-center">
       <button
         type={type || 'button'}
         onClick={onClick}
@@ -44,35 +57,35 @@ export const Button = ({
       </button>
       {isLoading ? <Spinner /> : null}
     </span>
-  )
-}
+  );
+};
 
 /* <Dropdown label={'name'}><Child1 />...</Dropdown> */
 type DropdownProps = BaseProps & {
-  label?: React.ReactElement | string
-}
+  label?: React.ReactElement | string;
+};
 export const Dropdown = ({ label = 'label', children }: DropdownProps) => {
   return (
     <div>
       <div className={`${styles.dropdown} inline-block relative`}>
-        <button className='font-semibold pt-1 pb-2 px-4 rounded inline-flex items-center rounded-sm border border-gray-300'>
-          <span className='mr-1'>{label}</span>
+        <button className="font-semibold pt-1 pb-2 px-4 rounded inline-flex items-center rounded-sm border border-gray-300">
+          <span className="mr-1">{label}</span>
           <svg
-            className='fill-current h-4 w-4 mt-1'
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
+            className="fill-current h-4 w-4 mt-1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
           >
-            <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />{' '}
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
           </svg>
         </button>
         <ul
           className={`${styles.dropdownMenu} absolute hidden text-gray-700 pt-1`}
         >
           {React.Children.map(children, (child: any) => (
-            <li className=''>
+            <li className="">
               <a
-                className='rounded-b bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap'
-                href='#'
+                className="rounded-b bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap"
+                href="#"
               >
                 {child}
               </a>
@@ -81,67 +94,67 @@ export const Dropdown = ({ label = 'label', children }: DropdownProps) => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
 /* <Spinner /> */
 export const Spinner = () => (
   <svg
-    className='animate-spin ml-2 mr-2 h-5 w-5 text-gray'
-    xmlns='http://www.w3.org/2000/svg'
-    fill='none'
-    viewBox='0 0 24 24'
+    className="animate-spin ml-2 mr-2 h-5 w-5 text-gray"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
   >
     <circle
-      className='opacity-25'
-      cx='12'
-      cy='12'
-      r='10'
-      stroke='currentColor'
-      strokeWidth='4'
+      className="opacity-25"
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="4"
     ></circle>
     <path
-      className='opacity-75'
-      fill='currentColor'
-      d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+      className="opacity-75"
+      fill="currentColor"
+      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
     ></path>
   </svg>
-)
+);
 
 /* <Accordion openValue={true} /> */
 export const Accordion = ({
   openValue,
   label,
-  children
+  children,
 }: {
-  openValue: boolean
-  label: React.ReactElement | string
-  children: React.ReactElement
+  openValue: boolean;
+  label: React.ReactElement | string;
+  children: React.ReactElement;
 }) => {
   // source: https://codepen.io/QJan84/pen/zYvRMMw
-  const openCount = React.useRef(0)
-  const [open, setOpen] = React.useState(openValue)
+  const openCount = React.useRef(0);
+  const [open, setOpen] = React.useState(openValue);
   React.useEffect(() => {
-    setOpen(openValue)
+    setOpen(openValue);
     if (openValue) {
-      openCount.current++
+      openCount.current++;
     }
-  }, [openValue])
+  }, [openValue]);
   return (
-    <div className='' x-data='{selected:null}'>
-      <ul className='shadow-box'>
-        <li className='relative border-b border-gray-200'>
+    <div className="" x-data="{selected:null}">
+      <ul className="shadow-box">
+        <li className="relative border-b border-gray-200">
           <button
-            type='button'
-            className='w-full'
+            type="button"
+            className="w-full"
             onClick={() => {
-              setOpen(!open)
+              setOpen(!open);
               if (openValue) {
-                openCount.current++
+                openCount.current++;
               }
             }}
           >
-            <div className='flex items-center justify-between'>
+            <div className="flex items-center justify-between">
               <span>{label}</span>
               <span>{open ? '-' : '+'}</span>
             </div>
@@ -150,7 +163,7 @@ export const Accordion = ({
             className={`relative overflow-hidden max-h-0 ${
               openCount.current > 1 ? 'transition-all duration-700' : ''
             }`}
-            x-ref='container1'
+            x-ref="container1"
             style={{ maxHeight: open ? 200 : 0 }}
           >
             {children}
@@ -158,65 +171,88 @@ export const Accordion = ({
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
-// source: https://tailwindui.com/components/application-ui/overlays/modals
+// based on: https://tailwindui.com/components/application-ui/overlays/modals
 export const Modal = ({
   title,
   content,
   onCancel,
-  onConfirm
+  onConfirm,
 }: {
-  title?: string
-  content?: any
-  onCancel?: () => void
-  onConfirm?: () => void
+  title?: string;
+  content?: any;
+  onCancel?: () => void;
+  onConfirm?: () => void;
 }) => {
   return (
     <div
-      className='fixed z-10 inset-0 overflow-y-auto'
-      aria-labelledby='modal-title'
-      role='dialog'
-      aria-modal='true'
+      className="fixed z-10 inset-0 overflow-y-auto"
+      aria-labelledby="modal-title"
+      role="dialog"
+      aria-modal="true"
     >
-      <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
+      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div
-          className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity'
-          aria-hidden='true'
+          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          aria-hidden="true"
           onClick={onCancel}
         ></div>
         <span
-          className='hidden sm:inline-block sm:align-middle sm:h-screen'
-          aria-hidden='true'
+          className="hidden sm:inline-block sm:align-middle sm:h-screen"
+          aria-hidden="true"
         >
           &#8203;
         </span>
 
-        <div className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'>
-          <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
-            <div className=''>
-              <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
+        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="">
+              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <h3
-                  className='text-lg leading-6 font-medium text-gray-900'
-                  id='modal-title'
+                  className="text-lg leading-6 font-medium text-gray-900"
+                  id="modal-title"
                 >
                   {title || 'Title'}
                 </h3>
-                <div className='mt-2'>{content || 'Content'}</div>
+                <div className="mt-2">{content || 'Content'}</div>
               </div>
             </div>
           </div>
-          <div className='mb-4 bg-gray-50 px-4 sm:px-6 sm:flex sm:flex-row-reverse'>
+          <div className="mb-4 bg-gray-50 px-4 sm:px-6 sm:flex sm:flex-row-reverse">
             <Button primary onClick={onConfirm} width={100}>
               OK
             </Button>
-            <Button className='mr-2' onClick={onCancel} width={100}>
+            <Button className="mr-2" onClick={onCancel} width={100}>
               Cancel
             </Button>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+// based on: https://www.tailwindtoolbox.com/components/alerts
+export const Toast = ({ success, error, content, onDismiss }: { success?: boolean, error?: boolean, content?: any, onDismiss?: () => void }) => {
+  let cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-white border border-gray-200 h-16 rounded shadow-lg`;
+  if (success) {
+    cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-green-300 h-16 rounded shadow-lg`;
+  }
+  else if (error) {
+    cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-red-300 h-16 rounded shadow-lg`;
+  }
+  return (
+    <div className={`${styles.toast} fixed bottom-4 right-4 w-5/6 md:w-full max-w-sm`}>
+      <label
+        className={cn}
+        title="close"
+        onClick={onDismiss}
+      >
+        {content || 'Content'}
+        <Icons.Cross />
+      </label>
+    </div>
+  );
+};

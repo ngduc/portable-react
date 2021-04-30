@@ -1,14 +1,15 @@
 import React from 'react'
 
-import { Button, Dropdown, Accordion, Modal } from 'portable-react'
+import { Button, Dropdown, Accordion, Modal, Toast } from 'portable-react'
 import 'portable-react/dist/index.css'
 
 const App = () => {
-  const [modalShowed, setModalShowed] = React.useState(false)
+  const [modalShowed, setModalShowed] = React.useState(false);
+  const [toastShowed, setToastShowed] = React.useState(false)
 
   return (
     <div className='p-4'>
-      <h3>Playground: Accordion, Button, Modal, Dropdown</h3>
+      <h3>Playground: Button, Dropdown, Accordion, Modal, Toast</h3>
 
       <div className='space-y-4 mt-2'>
         <div className='w-1/6'>
@@ -18,6 +19,8 @@ const App = () => {
         </div>
 
         <Button onClick={() => setModalShowed(true)}>Show Modal</Button>
+
+        <Button className="ml-4" onClick={() => setToastShowed(true)}>Show Toast</Button>
 
         <Button primary className="ml-4">Primary Button</Button>
 
@@ -34,6 +37,8 @@ const App = () => {
             onConfirm={() => setModalShowed(false)}
           />
         )}
+
+        {toastShowed && <Toast content="Toast Content" success onDismiss={() => setToastShowed(false)} />}
       </div>
     </div>
   )
