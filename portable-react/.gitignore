@@ -1,2 +1,5 @@
+.vercel
+
 dist
+build
 node_modules
