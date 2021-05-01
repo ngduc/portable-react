@@ -39,7 +39,7 @@ const App = () => {
 
         {toastShowed && <Toast content="Toast Content" success onDismiss={() => setToastShowed(false)} />}
 
-        <form className="w-1/6 p-4 border bg-gray-100">
+        <form className="lg:w-1/6 sm:w-full p-4 border bg-gray-100">
           <Field label="Name" defaultValue="John" />
           <Field label="Email" type="email" placeholder="john@email.com" />
           <Field
