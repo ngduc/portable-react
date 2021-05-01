@@ -6,6 +6,7 @@ import 'portable-react/dist/index.css';
 const App = () => {
   const [modalShowed, setModalShowed] = React.useState(false);
   const [toastShowed, setToastShowed] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   return (
     <div className="p-4">
@@ -27,8 +28,8 @@ const App = () => {
           Show Toast
         </Button>
 
-        <Button primary className="ml-4">
-          Primary Button
+        <Button primary className="ml-4" isLoading={isLoading} onClick={() => setIsLoading(true)}>
+          Show Spinner
         </Button>
 
         <Dropdown label="Dropdown">

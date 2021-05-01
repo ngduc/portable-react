@@ -27,9 +27,9 @@ export type ButtonProps = BaseProps & {
 };
 export const Button = ({ className, type, onClick, children, isLoading, primary, width, style, ...others }: ButtonProps) => {
   let cn =
-    'mt-3 w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm';
+    'mt-3 w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0';
   if (primary) {
-    cn = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm`;
+    cn = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
   }
   return (
     <span className="inline-flex items-center">
