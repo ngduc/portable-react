@@ -1,6 +1,6 @@
 {
   "name": "portable-react",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "description": "Simple React components written in Typescript using Tailwind CSS, all in one index.tsx file.",
   "author": "ngduc",
   "license": "MIT",

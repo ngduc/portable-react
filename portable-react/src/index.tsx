@@ -12,34 +12,19 @@ type BaseProps = {
 /* Icons.IconName */
 export const Icons = {
   Cross: ({ className }: BaseProps) => (
-    <svg
-          className={`fill-current text-gray-600 ${className}`}
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-        >
-          <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-        </svg>
-  )
+    <svg className={`fill-current text-gray-600 ${className}`} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+      <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+    </svg>
+  ),
 };
 
 /* <Button>label</Button> */
 export type ButtonProps = BaseProps & {
-  type?: 'button' | 'submit' | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   primary?: boolean;
   width?: number;
 };
-export const Button = ({
-  type,
-  onClick,
-  children,
-  className,
-  isLoading,
-  primary,
-  width,
-  style,
-}: ButtonProps) => {
+export const Button = ({ type, onClick, children, className, isLoading, primary, width, style }: ButtonProps) => {
   let cn =
     'mt-3 w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm';
   if (primary) {
@@ -47,12 +32,7 @@ export const Button = ({
   }
   return (
     <span className="inline-flex items-center">
-      <button
-        type={type || 'button'}
-        onClick={onClick}
-        className={`${cn} ${className}`}
-        style={{ width: width || 'auto', ...style }}
-      >
+      <button type={type || 'button'} onClick={onClick} className={`${cn} ${className}`} style={{ width: width || 'auto', ...style }}>
         {children}
       </button>
       {isLoading ? <Spinner /> : null}
@@ -61,32 +41,21 @@ export const Button = ({
 };
 
 /* <Dropdown label={'name'}><Child1 />...</Dropdown> */
-type DropdownProps = BaseProps & {
-  label?: React.ReactElement | string;
-};
+type DropdownProps = BaseProps & { label?: React.ReactElement | string };
 export const Dropdown = ({ label = 'label', children }: DropdownProps) => {
   return (
     <div>
       <div className={`${styles.dropdown} inline-block relative`}>
         <button className="font-semibold pt-1 pb-2 px-4 rounded inline-flex items-center rounded-sm border border-gray-300">
           <span className="mr-1">{label}</span>
-          <svg
-            className="fill-current h-4 w-4 mt-1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
+          <svg className="fill-current h-4 w-4 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
           </svg>
         </button>
-        <ul
-          className={`${styles.dropdownMenu} absolute hidden text-gray-700 pt-1`}
-        >
+        <ul className={`${styles.dropdownMenu} absolute hidden text-gray-700 pt-1`}>
           {React.Children.map(children, (child: any) => (
             <li className="">
-              <a
-                className="rounded-b bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap"
-                href="#"
-              >
+              <a className="rounded-b bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap" href="#">
                 {child}
               </a>
             </li>
@@ -99,20 +68,8 @@ export const Dropdown = ({ label = 'label', children }: DropdownProps) => {
 
 /* <Spinner /> */
 export const Spinner = () => (
-  <svg
-    className="animate-spin ml-2 mr-2 h-5 w-5 text-gray"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-  >
-    <circle
-      className="opacity-25"
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="4"
-    ></circle>
+  <svg className="animate-spin ml-2 mr-2 h-5 w-5 text-gray" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
     <path
       className="opacity-75"
       fill="currentColor"
@@ -121,7 +78,7 @@ export const Spinner = () => (
   </svg>
 );
 
-/* <Accordion openValue={true} /> */
+/* <Accordion openValue={true} label="Heading">Content</Accordion> */
 export const Accordion = ({
   openValue,
   label,
@@ -160,9 +117,7 @@ export const Accordion = ({
             </div>
           </button>
           <div
-            className={`relative overflow-hidden max-h-0 ${
-              openCount.current > 1 ? 'transition-all duration-700' : ''
-            }`}
+            className={`relative overflow-hidden max-h-0 ${openCount.current > 1 ? 'transition-all duration-700' : ''}`}
             x-ref="container1"
             style={{ maxHeight: open ? 200 : 0 }}
           >
@@ -174,35 +129,14 @@ export const Accordion = ({
   );
 };
 
+// <Modal title='Modal Title' content={<p>Modal Content</p>} onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />
 // based on: https://tailwindui.com/components/application-ui/overlays/modals
-export const Modal = ({
-  title,
-  content,
-  onCancel,
-  onConfirm,
-}: {
-  title?: string;
-  content?: any;
-  onCancel?: () => void;
-  onConfirm?: () => void;
-}) => {
+export const Modal = ({ title, content, onCancel, onConfirm }: { title?: string; content?: any; onCancel?: () => void; onConfirm?: () => void }) => {
   return (
-    <div
-      className="fixed z-10 inset-0 overflow-y-auto"
-      aria-labelledby="modal-title"
-      role="dialog"
-      aria-modal="true"
-    >
+    <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-          aria-hidden="true"
-          onClick={onCancel}
-        ></div>
-        <span
-          className="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true"
-        >
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onCancel}></div>
+        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
           &#8203;
         </span>
 
@@ -210,10 +144,7 @@ export const Modal = ({
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="">
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                <h3
-                  className="text-lg leading-6 font-medium text-gray-900"
-                  id="modal-title"
-                >
+                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                   {title || 'Title'}
                 </h3>
                 <div className="mt-2">{content || 'Content'}</div>
@@ -235,24 +166,49 @@ export const Modal = ({
 };
 
 // based on: https://www.tailwindtoolbox.com/components/alerts
-export const Toast = ({ success, error, content, onDismiss }: { success?: boolean, error?: boolean, content?: any, onDismiss?: () => void }) => {
+export const Toast = ({ success, error, content, onDismiss }: { success?: boolean; error?: boolean; content?: any; onDismiss?: () => void }) => {
   let cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-white border border-gray-200 h-16 rounded shadow-lg`;
   if (success) {
     cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-green-300 h-16 rounded shadow-lg`;
-  }
-  else if (error) {
+  } else if (error) {
     cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-red-300 h-16 rounded shadow-lg`;
   }
   return (
     <div className={`${styles.toast} fixed bottom-4 right-4 w-5/6 md:w-full max-w-sm`}>
-      <label
-        className={cn}
-        title="close"
-        onClick={onDismiss}
-      >
+      <label className={cn} title="close" onClick={onDismiss}>
         {content || 'Content'}
         <Icons.Cross />
       </label>
     </div>
+  );
+};
+
+// <Field label="Email" type="email" placeholder="john@email.com" field={CustomFieldJSX} />
+export type FieldProps = BaseProps & {
+  label?: string;
+  type?: string;
+  placeholder?: string;
+  field?: any;
+  fieldClassName?: string;
+  value?: string;
+  defaultValue?: string;
+};
+// based on: https://tailwindcss-custom-forms.netlify.app
+export const Field = ({ className, label, type, placeholder, field, defaultValue, value, fieldClassName }: FieldProps) => {
+  return (
+    <label className={`block mt-2 ${className}`}>
+      <span>{label || 'Label'}</span>
+      {field ? (
+        <div className={fieldClassName}>{field}</div>
+      ) : (
+        <input
+          type={type}
+          className={`form-input mt-1 block w-full p-2 border rounded-sm border-gray-300 ${fieldClassName}`}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          value={value}
+        />
+      )}
+    </label>
   );
 };
