@@ -10,6 +10,9 @@ const App = () => {
   return (
     <div className="p-4">
       <h3>Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field</h3>
+      <p>
+        Star this on Github: <a href="https://github.com/ngduc/portable-react">Back to portable-react</a>
+      </p>
 
       <div className="space-y-4 mt-2">
         <div className="w-1/6">
