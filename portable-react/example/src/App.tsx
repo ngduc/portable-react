@@ -16,7 +16,7 @@ const App = () => {
       </p>
 
       <div className="space-y-4 mt-2">
-        <div className="w-1/6">
+        <div className="lg:w-1/6">
           <Accordion label="Accordion" openValue={true}>
             <div>Some Content</div>
           </Accordion>

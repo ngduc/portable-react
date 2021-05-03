@@ -26,10 +26,11 @@ export type ButtonProps = BaseProps & {
   width?: number;
 };
 export const Button = ({ className, type, onClick, children, isLoading, primary, width, style, ...others }: ButtonProps) => {
+  const common = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2  bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
   let cn =
-    'mt-3 w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0';
+    `${common} hover:bg-gray-200 focus:bg-gray-200`;
   if (primary) {
-    cn = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
+    cn = `${common} bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700`;
   }
   return (
     <span className="inline-flex items-center">
@@ -47,9 +48,9 @@ export const Dropdown = ({ className, label = 'label', itemClassName, children, 
   return (
     <div className={className} {...others}>
       <div className={`${styles.dropdown} inline-block relative`}>
-        <button className="pt-1 pb-2 px-4 rounded inline-flex items-center rounded-sm border border-gray-300">
+        <button className="py-2 px-4 rounded inline-flex items-center rounded-sm border border-gray-300">
           <span className="mr-1">{label}</span>
-          <svg className="fill-current h-4 w-4 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
           </svg>
         </button>
