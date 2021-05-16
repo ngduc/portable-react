@@ -39,11 +39,12 @@ const App = () => {
 
         {modalShowed && <Modal title="Modal Title" content={<p>Modal Content</p>} onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />}
 
-        {toastShowed && <Toast content="Toast Content" success onDismiss={() => setToastShowed(false)} />}
+        {toastShowed && <Toast content="Toast Content" error onDismiss={() => setToastShowed(false)} />}
 
         <form className="lg:w-1/6 sm:w-full p-4 border bg-gray-100">
           <Field label="Name" defaultValue="John" autoFocus={true} />
-          <Field label="Email" type="email" placeholder="john@email.com" />
+          <Field label="Email*" type="email" placeholder="john@email.com" required={true} />
+          <Field label="Birthday" type="date" placeholder="" />
           <Field label="Favourite Color" className="my-2" fieldClassName="inline space-x-4 ml-4">
             <label>
               <input type="radio" name="color" value="RED" /> Red

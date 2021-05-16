@@ -27,8 +27,7 @@ export type ButtonProps = BaseProps & {
 };
 export const Button = ({ className, type, onClick, children, isLoading, primary, width, style, ...others }: ButtonProps) => {
   const common = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2  bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
-  let cn =
-    `${common} hover:bg-gray-200 focus:bg-gray-200`;
+  let cn = `${common} hover:bg-gray-200 focus:bg-gray-200`;
   if (primary) {
     cn = `${common} bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700`;
   }
@@ -57,9 +56,7 @@ export const Dropdown = ({ className, label = 'label', itemClassName, children, 
         <ul className={`${styles.dropdownMenu} absolute hidden text-gray-700 pt-1`}>
           {React.Children.map(children, (child: any) => (
             <li className={itemClassName}>
-              <span className="rounded-b bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap cursor-pointer">
-                {child}
-              </span>
+              <span className="rounded-b bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap cursor-pointer">{child}</span>
             </li>
           ))}
         </ul>
@@ -162,19 +159,37 @@ export const Modal = ({ className, title, content, onCancel, onConfirm, ...other
 };
 
 // <Toast content="Toast Content" success onDismiss={() => setToastShowed(false)} />}
-export const Toast = ({ className, success, error, content, onDismiss, ...others }: BaseProps & { success?: boolean; error?: boolean; content?: any; onDismiss?: () => void }) => {
-  let cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-white border border-gray-200 h-16 rounded shadow-lg ${className}`;
+export const Toast = ({
+  className,
+  success,
+  error,
+  title,
+  content,
+  icon,
+  onDismiss,
+  ...others
+}: BaseProps & { success?: boolean; error?: boolean; icon?: any; title?: string; content?: any; onDismiss?: () => void }) => {
+  const svgIcon = icon || (
+    <svg className="h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+      <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+    </svg>
+  );
+  const base = `bg-teal-lightest border-t-4 rounded-b text-teal-darkest px-4 py-3 shadow-md my-2`;
+  let cn = `${base} border-teal`;
   if (success) {
-    cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-green-300 h-16 rounded shadow-lg ${className}`;
+    cn = `${base} border-green-200`;
   } else if (error) {
-    cn = `close cursor-pointer flex items-start justify-between w-full p-2 bg-red-300 h-16 rounded shadow-lg ${className}`;
+    cn = `${base} border-red-200`;
   }
   return (
-    <div className={`${styles.toast} fixed bottom-4 right-4 w-5/6 md:w-full max-w-sm`} {...others}>
-      <label className={cn} title="close" onClick={onDismiss}>
-        {content || 'Content'}
-        <Icons.Cross />
-      </label>
+    <div className={`fixed bottom-4 right-4 w-5/6 md:w-full max-w-sm ${cn} ${className}`} role="alert" {...others}>
+      <div className="flex" onClick={onDismiss}>
+        {svgIcon}
+        <div>
+          <p className="font-bold">{title || 'Title'}</p>
+          {content || 'Content'}
+        </div>
+      </div>
     </div>
   );
   // based on: https://www.tailwindtoolbox.com/components/alerts

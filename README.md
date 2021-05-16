@@ -23,3 +23,8 @@ This is not another component library, rather a set of building blocks, all in o
 ### Using npm
 
 For those who want to use npm, install it by running: npm install portable-react --save
+
+### Development
+
+- Open the "portable-react" directory, run: yarn start.
+- Open the "example" directory (CRA project), run: yarn start.
