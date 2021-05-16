@@ -144,12 +144,16 @@ export const Modal = ({ className, title, content, onCancel, onConfirm, ...other
             </div>
           </div>
           <div className="mb-4 bg-gray-50 px-4 sm:px-6 sm:flex sm:flex-row-reverse">
-            <Button primary onClick={onConfirm} width={100}>
-              OK
-            </Button>
-            <Button className="mr-2" onClick={onCancel} width={100}>
-              Cancel
-            </Button>
+            {onConfirm && (
+              <Button primary onClick={onConfirm} width={100}>
+                OK
+              </Button>
+            )}
+            {onCancel && (
+              <Button className="mr-2" onClick={onCancel} width={100}>
+                Cancel
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -159,16 +163,15 @@ export const Modal = ({ className, title, content, onCancel, onConfirm, ...other
 };
 
 // <Toast content="Toast Content" success onDismiss={() => setToastShowed(false)} />}
-export const Toast = ({
-  className,
-  success,
-  error,
-  title,
-  content,
-  icon,
-  onDismiss,
-  ...others
-}: BaseProps & { success?: boolean; error?: boolean; icon?: any; title?: string; content?: any; onDismiss?: () => void }) => {
+export type ToastProps = BaseProps & {
+  success?: boolean;
+  error?: boolean;
+  icon?: any;
+  title?: string;
+  content?: any;
+  onDismiss?: () => void;
+};
+export const Toast = ({ className, success, error, title, content, icon, onDismiss, ...others }: ToastProps) => {
   const svgIcon = icon || (
     <svg className="h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
       <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
