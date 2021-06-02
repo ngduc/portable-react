@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Dropdown, Accordion, Modal, Toast, Field } from 'portable-react';
+import { Button, Dropdown, Accordion, Modal, Toast, Field, Tooltip } from 'portable-react';
 import 'portable-react/dist/index.css';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <div className="p-4">
-      <h3>Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner.</h3>
+      <h3>Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip.</h3>
       <p>
         Star this on Github: <a href="https://github.com/ngduc/portable-react">Back to portable-react</a>
       </p>
@@ -22,7 +22,9 @@ const App = () => {
           </Accordion>
         </div>
 
-        <Button onClick={() => setModalShowed(true)}>Show Modal</Button>
+        <Tooltip content="Tooltip: Show Modal">
+          <Button onClick={() => setModalShowed(true)}>Show Modal</Button>
+        </Tooltip>
 
         <Button className="ml-4" data-id="any-testid" onClick={() => setToastShowed(true)}>
           Show Toast
@@ -37,7 +39,7 @@ const App = () => {
           <div>Option 2</div>
         </Dropdown>
 
-        {modalShowed && <Modal title="Modal Title" content={<p>Modal Content</p>} onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />}
+        {modalShowed && <Modal title="Modal Title" content={<p>Modal Content</p>} confirmLabel="Confirm" onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />}
 
         {toastShowed && <Toast content="Toast Content" error onDismiss={() => setToastShowed(false)} autoDismiss={2000} />}
 

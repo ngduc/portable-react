@@ -123,7 +123,8 @@ export const Accordion = ({
 };
 
 // <Modal title="Modal Title" content={<p>Modal Content</p>} onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />
-export const Modal = ({ className, title, content, onCancel, onConfirm, ...others }: BaseProps & { title?: string; content?: any; onCancel?: () => void; onConfirm?: () => void }) => {
+export const Modal = ({ className, title, content, onCancel, onConfirm, cancelLabel, confirmLabel, ...others }:
+  BaseProps & { title?: string; content?: any; onCancel?: () => void; onConfirm?: () => void, cancelLabel?: React.ReactElement | string, confirmLabel?: React.ReactElement | string }) => {
   return (
     <div className={`fixed z-10 inset-0 overflow-y-auto ${className}`} aria-labelledby="modal-title" role="dialog" aria-modal="true" {...others}>
       <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -146,12 +147,12 @@ export const Modal = ({ className, title, content, onCancel, onConfirm, ...other
           <div className="mb-4 bg-gray-50 px-4 sm:px-6 sm:flex sm:flex-row-reverse">
             {onConfirm && (
               <Button primary onClick={onConfirm} width={100}>
-                OK
+                {confirmLabel || 'OK'}
               </Button>
             )}
             {onCancel && (
               <Button className="mr-2" onClick={onCancel} width={100}>
-                Cancel
+                {cancelLabel || 'Cancel'}
               </Button>
             )}
           </div>
@@ -236,4 +237,20 @@ export const Field = ({ className, label, type, placeholder, children, defaultVa
     </label>
   );
   // based on: https://tailwindcss-custom-forms.netlify.app
+};
+
+// <Tooltip content="Email">...</Tooltip>
+export const Tooltip = ({ content, className, children }: BaseProps & { content: any; children: any }) => {
+  return (
+    <div className={`relative inline-flex flex flex-col items-center ${styles.group} ${className}`}>
+      {children}
+      <div className={`absolute bottom-0 flex flex-col items-center hidden mb-10 ${styles.groupHover}`}>
+        <span className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
+          {content}
+        </span>
+        <div className={`w-3 h-3 -mt-2 bg-black ${styles.rotate45}`}></div>
+      </div>
+    </div>
+  );
+  // based on: https://codepen.io/robstinson/details/eYZLRdv
 };
