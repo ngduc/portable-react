@@ -26,10 +26,12 @@ export type ButtonProps = BaseProps & {
   width?: number;
 };
 export const Button = ({ className, type, onClick, children, isLoading, primary, width, style, ...others }: ButtonProps) => {
-  const common = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2  bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
+  const common = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
   let cn = `${common} hover:bg-gray-200 focus:bg-gray-200`;
   if (primary) {
-    cn = `${common} bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700`;
+    cn = `${common} text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700`;
+  } else {
+    cn = `${common} text-gray-700 bg-white`
   }
   return (
     <span className="inline-flex items-center">

@@ -1,8 +1,8 @@
 {
   "name": "portable-react",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Simple React components written in Typescript using Tailwind CSS, all in one index.tsx file ~ 200 lines of code.",
-  "author": "ngduc",
+  "author": "Duc Nguyen",
   "license": "MIT",
   "repository": "ngduc/portable-react",
   "main": "dist/index.js",
