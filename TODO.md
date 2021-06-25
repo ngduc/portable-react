@@ -6,7 +6,7 @@ Project Description
 
 ### Todo
 
-- [ ] TBD
+- [ ] Create vanilla JS version
 
 ### In Progress
 
