@@ -2,8 +2,8 @@
 
 Simple React components written in Typescript using Tailwind CSS, all in one index.tsx file ~ 200 lines of code.
 
-- [Live Example](https://portable-react-example.vercel.app/)
-- [Live Code](https://stackblitz.com/edit/portable-react-example?file=index.tsx)
+- [Live Playground](https://stackblitz.com/edit/portable-react-example?file=index.tsx)
+- [Code Example](./portable-react/example/src/App.tsx)
 - Components: Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip, ProgressBar and more. Work on responsive / mobile screens.
 
 ### Usage
