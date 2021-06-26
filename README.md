@@ -4,7 +4,7 @@ Simple React components written in Typescript using Tailwind CSS, all in one ind
 
 - [Live Example](https://portable-react-example.vercel.app/)
 - [Live Code](https://stackblitz.com/edit/portable-react-example?file=index.tsx)
-- Components: Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip and more. Work on responsive / mobile screens.
+- Components: Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip, ProgressBar and more. Work on responsive / mobile screens.
 
 ### Usage
 

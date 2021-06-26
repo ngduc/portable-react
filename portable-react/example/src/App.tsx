@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Dropdown, Accordion, Modal, Toast, Field, Tooltip } from 'portable-react';
+import { Button, Dropdown, Accordion, Modal, Toast, Field, Tooltip, ProgressBar } from 'portable-react';
 import 'portable-react/dist/index.css';
 
 const App = () => {
@@ -10,9 +10,9 @@ const App = () => {
 
   return (
     <div className="p-4">
-      <h3>Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip.</h3>
+      <h3>Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip, ProgressBar.</h3>
       <p>
-        Star this on Github: <a href="https://github.com/ngduc/portable-react">Back to portable-react</a>
+        Star this on Github ★ <a href="https://github.com/ngduc/portable-react">Back to portable-react</a>
       </p>
 
       <div className="space-y-4 mt-2">
@@ -44,6 +44,9 @@ const App = () => {
         {toastShowed && <Toast content="Toast Content" error onDismiss={() => setToastShowed(false)} autoDismiss={2000} />}
 
         <form className="lg:w-1/6 sm:w-full p-4 border bg-gray-100">
+
+          <ProgressBar total={100} value={25} />
+
           <Field label="Name" defaultValue="John" autoFocus={true} />
           <Field label="Email*" type="email" placeholder="john@email.com" required={true} />
           <Field label="Birthday" type="date" placeholder="" />

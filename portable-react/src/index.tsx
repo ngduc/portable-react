@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styles from './styles.module.css';
 
 type BaseProps = {
@@ -26,7 +26,7 @@ export type ButtonProps = BaseProps & {
   width?: number;
 };
 export const Button = ({ className, type, onClick, children, isLoading, primary, width, style, ...others }: ButtonProps) => {
-  const common = `w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
+  const common = `w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
   let cn = `${common} hover:bg-gray-200 focus:bg-gray-200`;
   if (primary) {
     cn = `${common} text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700`;
@@ -49,7 +49,7 @@ export const Dropdown = ({ className, label = 'label', itemClassName, children, 
   return (
     <div className={className} {...others}>
       <div className={`${styles.dropdown} inline-block relative`}>
-        <button className="py-2 px-4 rounded inline-flex items-center rounded-sm border border-gray-300">
+        <button className="py-2 px-4 rounded inline-flex items-center rounded-md border border-gray-300">
           <span className="mr-1">{label}</span>
           <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
@@ -162,7 +162,7 @@ export const Modal = ({ className, title, content, onCancel, onConfirm, cancelLa
       </div>
     </div>
   );
-  // based on: https://tailwindui.com/components/application-ui/overlays/modals
+  // html: https://tailwindui.com/components/application-ui/overlays/modals
 };
 
 // <Toast content="Toast Content" success onDismiss={() => setToastShowed(false)} />}
@@ -207,7 +207,7 @@ export const Toast = ({ className, success, error, title, content, icon, onDismi
       </div>
     </div>
   );
-  // based on: https://www.tailwindtoolbox.com/components/alerts
+  // html: https://www.tailwindtoolbox.com/components/alerts
 };
 
 // <Field label="Email" type="email" placeholder="john@email.com" />
@@ -229,7 +229,7 @@ export const Field = ({ className, label, type, placeholder, children, defaultVa
       ) : (
         <input
           type={type}
-          className={`form-input mt-1 block w-full p-2 border rounded-sm border-gray-300 ${fieldClassName}`}
+          className={`form-input mt-1 block w-full p-2 border rounded-md border-gray-300 ${fieldClassName}`}
           placeholder={placeholder}
           defaultValue={defaultValue}
           value={value}
@@ -238,7 +238,7 @@ export const Field = ({ className, label, type, placeholder, children, defaultVa
       )}
     </label>
   );
-  // based on: https://tailwindcss-custom-forms.netlify.app
+  // html: https://tailwindcss-custom-forms.netlify.app
 };
 
 // <Tooltip content="Email">...</Tooltip>
@@ -247,12 +247,22 @@ export const Tooltip = ({ content, className, children }: BaseProps & { content:
     <div className={`relative inline-flex flex flex-col items-center ${styles.group} ${className}`}>
       {children}
       <div className={`absolute bottom-0 flex flex-col items-center hidden mb-10 ${styles.groupHover}`}>
-        <span className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
+        <span className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap rounded-md bg-black shadow-lg">
           {content}
         </span>
         <div className={`w-3 h-3 -mt-2 bg-black ${styles.rotate45}`}></div>
       </div>
     </div>
   );
-  // based on: https://codepen.io/robstinson/details/eYZLRdv
+  // html: https://codepen.io/robstinson/details/eYZLRdv
 };
+
+// <ProgressBar total={100} value={30} />
+export const ProgressBar = ({ value, total, valueStyle, totalStyle }:{ value: number, total: number, valueStyle?: CSSProperties, totalStyle?: CSSProperties }) => {
+  const pct = value / total * 100;
+  return (
+    <div className={styles.progressBar} style={{ ...totalStyle }}>
+      <div className={styles.progressBar} style={{ width: `${pct}%`, backgroundColor: '#00c300', ...valueStyle }} />
+    </div>
+  )
+}
