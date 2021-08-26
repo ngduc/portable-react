@@ -1,0 +1,48 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@babel/plugin-syntax-object-rest-spread': ^7.8.3
+  '@testing-library/jest-dom': link:../node_modules/@testing-library/jest-dom
+  '@testing-library/react': link:../node_modules/@testing-library/react
+  '@testing-library/user-event': link:../node_modules/@testing-library/user-event
+  '@types/jest': link:../node_modules/@types/jest
+  '@types/node': link:../node_modules/@types/node
+  '@types/react': link:../node_modules/@types/react
+  '@types/react-dom': link:../node_modules/@types/react-dom
+  portable-react: link:..
+  react: link:../node_modules/react
+  react-dom: link:../node_modules/react-dom
+  react-scripts: link:../node_modules/react-scripts
+  typescript: link:../node_modules/typescript
+
+dependencies:
+  '@testing-library/jest-dom': link:../node_modules/@testing-library/jest-dom
+  '@testing-library/react': link:../node_modules/@testing-library/react
+  '@testing-library/user-event': link:../node_modules/@testing-library/user-event
+  '@types/jest': link:../node_modules/@types/jest
+  '@types/node': link:../node_modules/@types/node
+  '@types/react': link:../node_modules/@types/react
+  '@types/react-dom': link:../node_modules/@types/react-dom
+  portable-react: link:..
+  react: link:../node_modules/react
+  react-dom: link:../node_modules/react-dom
+  react-scripts: link:../node_modules/react-scripts
+  typescript: link:../node_modules/typescript
+
+devDependencies:
+  '@babel/plugin-syntax-object-rest-spread': 7.8.3
+
+packages:
+
+  /@babel/helper-plugin-utils/7.14.5:
+    resolution: {integrity: sha512-/37qQCE3K0vvZKwoK4XU/irIJQdIfCJuhU5eKnNxpFDsOkgFaUAwbv+RYw6eYgsC0E4hS7r5KqGULUogqui0fQ==}
+    engines: {node: '>=6.9.0'}
+    dev: true
+
+  /@babel/plugin-syntax-object-rest-spread/7.8.3:
+    resolution: {integrity: sha512-XoqMijGZb9y3y2XskN+P1wUGiVwWZ5JmoDRwx5+3GmEplNyVM2s2Dg8ILFQm8rWM48orGy5YpI5Bl8U1y7ydlA==}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/helper-plugin-utils': 7.14.5
+    dev: true

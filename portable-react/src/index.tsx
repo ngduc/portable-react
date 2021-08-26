@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useState, useEffect } from 'react';
 import styles from './styles.module.css';
 
 type BaseProps = {
@@ -18,6 +18,17 @@ export const Icons = {
     </svg>
   ),
 };
+
+export function useDebounce<T>(value: T, delay?: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay || 500)
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [value, delay])
+  return debouncedValue;
+}
 
 /* <Button type="button" onClick={}>label</Button> */
 export type ButtonProps = BaseProps & {
@@ -112,7 +123,7 @@ export const Accordion = ({
           >
             <div className="flex items-center justify-between">
               <span>{label}</span>
-              <span>{open ? '-' : '+'}</span>
+              <span>{open ? '▼' : '►'}</span>
             </div>
           </button>
           <div className={`relative overflow-hidden max-h-0 ${openCount.current > 1 ? 'transition-all duration-700' : ''}`} x-ref="container1" style={{ maxHeight: open ? 200 : 0 }}>
@@ -125,8 +136,8 @@ export const Accordion = ({
 };
 
 // <Modal title="Modal Title" content={<p>Modal Content</p>} onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />
-export const Modal = ({ className, title, content, onCancel, onConfirm, cancelLabel, confirmLabel, ...others }:
-  BaseProps & { title?: string; content?: any; onCancel?: () => void; onConfirm?: () => void, cancelLabel?: React.ReactElement | string, confirmLabel?: React.ReactElement | string }) => {
+export const Modal = ({ className, bodyClassName, title, content, onCancel, onConfirm, cancelLabel, confirmLabel, ...others }:
+  BaseProps & { bodyClassName?: string; title?: string; content?: any; onCancel?: () => void; onConfirm?: () => void, cancelLabel?: React.ReactElement | string, confirmLabel?: React.ReactElement | string }) => {
   return (
     <div className={`fixed z-10 inset-0 overflow-y-auto ${className}`} aria-labelledby="modal-title" role="dialog" aria-modal="true" {...others}>
       <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -135,7 +146,7 @@ export const Modal = ({ className, title, content, onCancel, onConfirm, cancelLa
           &#8203;
         </span>
 
-        <div className={`${styles.modalMain} inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full`}>
+        <div className={`${bodyClassName} ${styles.modalMain} inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full`}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="">
               <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
@@ -212,7 +223,7 @@ export const Toast = ({ className, success, error, title, content, icon, onDismi
 
 // <Field label="Email" type="email" placeholder="john@email.com" />
 export type FieldProps = BaseProps & {
-  label?: string;
+  label?: string | React.ReactElement;
   type?: string;
   placeholder?: string;
   fieldClassName?: string;
@@ -223,7 +234,7 @@ export type FieldProps = BaseProps & {
 export const Field = ({ className, label, type, placeholder, children, defaultValue, value, fieldClassName, ...others }: FieldProps) => {
   return (
     <label className={`block mt-2 ${className}`}>
-      <span>{label || 'Label'}</span>
+      {label && <span>{label}</span>}
       {children ? (
         <div className={fieldClassName}>{children}</div>
       ) : (
@@ -264,5 +275,36 @@ export const ProgressBar = ({ value, total, valueStyle, totalStyle }:{ value: nu
     <div className={styles.progressBar} style={{ ...totalStyle }}>
       <div className={styles.progressBar} style={{ width: `${pct}%`, backgroundColor: '#00c300', ...valueStyle }} />
     </div>
+  )
+}
+
+export type SearchInputProps = {
+  value?: string;
+  placeholder?: string;
+  debounceMs?: number;
+  onSearch?: (text: string) => void;
+}
+// <SearchInput placeholder="Type to search..." onSearch={(text) => {}} />
+export const SearchInput = ({ value, placeholder = 'Search...', debounceMs = 300, onSearch, ...others }: SearchInputProps) => {
+  const [text, setText] = useState('')
+  const debouncedText = useDebounce(text, debounceMs);
+  useEffect(() => {
+    onSearch && onSearch(debouncedText);
+  }, [debouncedText])
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value)
+  }
+  return (
+    <React.Fragment>
+      <Field label={''} defaultValue={value} placeholder={placeholder} style={{ paddingLeft: 38 }} onChange={handleChange} {...others} />
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginTop: -32, marginLeft: 10, color: '#aaa' }}>
+        <path d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+        ></path>
+        <path d="M22 22L20 20"
+          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+        ></path>
+      </svg>
+    </React.Fragment>
   )
 }

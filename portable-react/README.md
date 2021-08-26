@@ -8,6 +8,8 @@ npm install --save portable-react
 
 ## Usage
 
+- See more: [example project - App.tsx](./example/src/App.tsx)
+
 ```tsx
 import React, { Component } from 'react'
 

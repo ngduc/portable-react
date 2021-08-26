@@ -12,3 +12,4 @@ Project Description
 
 ### Done ✓
 
+- [x] SearchInput component

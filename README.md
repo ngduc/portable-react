@@ -1,16 +1,16 @@
 # portable-react
 
-Simple React components written in Typescript using Tailwind CSS, all in one index.tsx file ~ 200 lines of code.
+Simple React components written in Typescript using Tailwind CSS, all in one index.tsx file ~ 300 lines of code.
 
 - [Live Playground](https://stackblitz.com/edit/portable-react-example?file=index.tsx)
 - [Code Example](./portable-react/example/src/App.tsx)
-- Components: Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip, ProgressBar and more. Work on responsive / mobile screens.
+- Components: Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip, ProgressBar, SearchInput and more. Work on responsive / mobile screens.
 
 ### Usage
 
-Just copy [index.tsx](./portable-react/src/index.tsx) file to your project to use it.
+- Just copy [index.tsx](./portable-react/src/index.tsx) file to your project to use it.
 
-Include tailwind.min.css in your index.html using: https://cdnjs.com/libraries/tailwindcss
+- Include tailwind.min.css in your index.html using: https://cdnjs.com/libraries/tailwindcss
 
 ### Motivation
 

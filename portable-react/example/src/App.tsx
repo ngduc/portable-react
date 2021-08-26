@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Dropdown, Accordion, Modal, Toast, Field, Tooltip, ProgressBar } from 'portable-react';
+import { Button, Dropdown, Accordion, Modal, Toast, Field, Tooltip, ProgressBar, SearchInput } from 'portable-react';
 import 'portable-react/dist/index.css';
 
 const App = () => {
@@ -42,6 +42,10 @@ const App = () => {
         {modalShowed && <Modal title="Modal Title" content={<p>Modal Content</p>} confirmLabel="Confirm" onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />}
 
         {toastShowed && <Toast content="Toast Content" error onDismiss={() => setToastShowed(false)} autoDismiss={2000} />}
+
+        <div className="lg:w-1/6 py-2">
+          <SearchInput value={''} placeholder={'Search...'} onSearch={console.log} />
+        </div>
 
         <form className="lg:w-1/6 sm:w-full p-4 border bg-gray-100">
 
