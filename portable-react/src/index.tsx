@@ -2,7 +2,7 @@ import React, { CSSProperties, useState, useEffect } from 'react';
 import styles from './styles.module.css';
 
 type BaseProps = {
-  children?: React.ReactElement[] | React.ReactElement | string;
+  children?: any;
   className?: string;
   onClick?: () => void;
   isLoading?: boolean;
@@ -17,16 +17,28 @@ export const Icons = {
       <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
     </svg>
   ),
+  Search: ({ className, ...others }: BaseProps) => (
+    <svg className={`fill-none text-gray-600 ${className}`} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" {...others}>
+      <path
+        d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path d="M22 22L20 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+    </svg>
+  ),
 };
 
 export function useDebounce<T>(value: T, delay?: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
   useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay || 500)
+    const timer = setTimeout(() => setDebouncedValue(value), delay || 500);
     return () => {
-      clearTimeout(timer)
-    }
-  }, [value, delay])
+      clearTimeout(timer);
+    };
+  }, [value, delay]);
   return debouncedValue;
 }
 
@@ -42,7 +54,7 @@ export const Button = ({ className, type, onClick, children, isLoading, primary,
   if (primary) {
     cn = `${common} text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700`;
   } else {
-    cn = `${common} text-gray-700 bg-white`
+    cn = `${common} text-gray-700 bg-white`;
   }
   return (
     <span className="inline-flex items-center">
@@ -96,7 +108,6 @@ export const Accordion = ({
 }: BaseProps & {
   openValue: boolean;
   label: React.ReactElement | string;
-  children: React.ReactElement;
 }) => {
   // source: https://codepen.io/QJan84/pen/zYvRMMw
   const openCount = React.useRef(0);
@@ -123,7 +134,7 @@ export const Accordion = ({
           >
             <div className="flex items-center justify-between">
               <span>{label}</span>
-              <span>{open ? '▼' : '►'}</span>
+              <span>{open ? '▼' : '▶'}</span>
             </div>
           </button>
           <div className={`relative overflow-hidden max-h-0 ${openCount.current > 1 ? 'transition-all duration-700' : ''}`} x-ref="container1" style={{ maxHeight: open ? 200 : 0 }}>
@@ -136,8 +147,25 @@ export const Accordion = ({
 };
 
 // <Modal title="Modal Title" content={<p>Modal Content</p>} onCancel={() => setModalShowed(false)} onConfirm={() => setModalShowed(false)} />
-export const Modal = ({ className, bodyClassName, title, content, onCancel, onConfirm, cancelLabel, confirmLabel, ...others }:
-  BaseProps & { bodyClassName?: string; title?: string; content?: any; onCancel?: () => void; onConfirm?: () => void, cancelLabel?: React.ReactElement | string, confirmLabel?: React.ReactElement | string }) => {
+export const Modal = ({
+  className,
+  bodyClassName,
+  title,
+  content,
+  onCancel,
+  onConfirm,
+  cancelLabel,
+  confirmLabel,
+  ...others
+}: BaseProps & {
+  bodyClassName?: string;
+  title?: string;
+  content?: any;
+  onCancel?: () => void;
+  onConfirm?: () => void;
+  cancelLabel?: React.ReactElement | string;
+  confirmLabel?: React.ReactElement | string;
+}) => {
   return (
     <div className={`fixed z-10 inset-0 overflow-y-auto ${className}`} aria-labelledby="modal-title" role="dialog" aria-modal="true" {...others}>
       <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -146,7 +174,9 @@ export const Modal = ({ className, bodyClassName, title, content, onCancel, onCo
           &#8203;
         </span>
 
-        <div className={`${bodyClassName} ${styles.modalMain} inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full`}>
+        <div
+          className={`${bodyClassName} ${styles.modalMain} inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full`}
+        >
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="">
               <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
@@ -157,7 +187,7 @@ export const Modal = ({ className, bodyClassName, title, content, onCancel, onCo
               </div>
             </div>
           </div>
-          <div className="mb-4 bg-gray-50 px-4 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="mb-4 px-4 sm:px-6 sm:flex sm:flex-row-reverse">
             {onConfirm && (
               <Button primary onClick={onConfirm} width={100}>
                 {confirmLabel || 'OK'}
@@ -228,39 +258,42 @@ export type FieldProps = BaseProps & {
   placeholder?: string;
   fieldClassName?: string;
   value?: string;
-  defaultValue?: string;
   children?: any;
+  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
 };
-export const Field = ({ className, label, type, placeholder, children, defaultValue, value, fieldClassName, ...others }: FieldProps) => {
+export const Field = function ({ className, label, type, placeholder, children, value, fieldClassName, onChange, ...others }: FieldProps) {
+  const inputProps: FieldProps = {
+    type,
+    className: `form-input mt-1 block w-full p-2 border rounded-md border-gray-300 ${fieldClassName}`,
+    placeholder,
+    onChange,
+    ...others
+  }
+  if (value){
+    inputProps.value = value
+  }
   return (
     <label className={`block mt-2 ${className}`}>
       {label && <span>{label}</span>}
       {children ? (
         <div className={fieldClassName}>{children}</div>
       ) : (
-        <input
-          type={type}
-          className={`form-input mt-1 block w-full p-2 border rounded-md border-gray-300 ${fieldClassName}`}
-          placeholder={placeholder}
-          defaultValue={defaultValue}
-          value={value}
-          {...others}
-        />
+        <label>
+          <SearchInput {...inputProps} />
+        </label>
       )}
     </label>
   );
-  // html: https://tailwindcss-custom-forms.netlify.app
 };
+// html: https://tailwindcss-custom-forms.netlify.app
 
 // <Tooltip content="Email">...</Tooltip>
-export const Tooltip = ({ content, className, children }: BaseProps & { content: any; children: any }) => {
+export const Tooltip = ({ content, className, children }: BaseProps & { content: any }) => {
   return (
     <div className={`relative inline-flex flex flex-col items-center ${styles.group} ${className}`}>
       {children}
       <div className={`absolute bottom-0 flex flex-col items-center hidden mb-10 ${styles.groupHover}`}>
-        <span className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap rounded-md bg-black shadow-lg">
-          {content}
-        </span>
+        <span className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap rounded-md bg-black shadow-lg">{content}</span>
         <div className={`w-3 h-3 -mt-2 bg-black ${styles.rotate45}`}></div>
       </div>
     </div>
@@ -269,42 +302,36 @@ export const Tooltip = ({ content, className, children }: BaseProps & { content:
 };
 
 // <ProgressBar total={100} value={30} />
-export const ProgressBar = ({ value, total, valueStyle, totalStyle }:{ value: number, total: number, valueStyle?: CSSProperties, totalStyle?: CSSProperties }) => {
-  const pct = value / total * 100;
+export const ProgressBar = ({ value, total, valueStyle, totalStyle }: { value: number; total: number; valueStyle?: CSSProperties; totalStyle?: CSSProperties }) => {
+  const pct = (value / total) * 100;
   return (
     <div className={styles.progressBar} style={{ ...totalStyle }}>
       <div className={styles.progressBar} style={{ width: `${pct}%`, backgroundColor: '#00c300', ...valueStyle }} />
     </div>
-  )
-}
+  );
+};
 
 export type SearchInputProps = {
   value?: string;
   placeholder?: string;
   debounceMs?: number;
   onSearch?: (text: string) => void;
-}
+};
 // <SearchInput placeholder="Type to search..." onSearch={(text) => {}} />
 export const SearchInput = ({ value, placeholder = 'Search...', debounceMs = 300, onSearch, ...others }: SearchInputProps) => {
-  const [text, setText] = useState('')
+  const [text, setText] = useState('');
   const debouncedText = useDebounce(text, debounceMs);
   useEffect(() => {
     onSearch && onSearch(debouncedText);
-  }, [debouncedText])
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value)
-  }
+  }, [debouncedText]);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
   return (
-    <React.Fragment>
-      <Field label={''} defaultValue={value} placeholder={placeholder} style={{ paddingLeft: 38 }} onChange={handleChange} {...others} />
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginTop: -32, marginLeft: 10, color: '#aaa' }}>
-        <path d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-        ></path>
-        <path d="M22 22L20 20"
-          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-        ></path>
-      </svg>
-    </React.Fragment>
-  )
-}
+    <div className="">
+      <Field label={''} defaultValue={value} value={text} placeholder={placeholder} style={{ paddingLeft: 38 }} onChange={onChange} {...others} />
+      <Icons.Search style={{ marginTop: -32, marginLeft: 10, color: '#aaa' }} />
+      {/* <Icons.Cross className="absolute top-3 right-2 cursor-pointer" style={{ color: '#aaa' }} onClick={onClickClear} /> */}
+    </div>
+  );
+};
