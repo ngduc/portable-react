@@ -108,6 +108,7 @@ export const Accordion = ({
 }: BaseProps & {
   openValue: boolean;
   label: React.ReactElement | string;
+  children: React.ReactElement;
 }) => {
   // source: https://codepen.io/QJan84/pen/zYvRMMw
   const openCount = React.useRef(0);
@@ -258,19 +259,13 @@ export type FieldProps = BaseProps & {
   placeholder?: string;
   fieldClassName?: string;
   value?: string;
+  defaultValue?: string;
   children?: any;
-  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
 };
-export const Field = function ({ className, label, type, placeholder, children, value, fieldClassName, onChange, ...others }: FieldProps) {
-  const inputProps: FieldProps = {
-    type,
-    className: `form-input mt-1 block w-full p-2 border rounded-md border-gray-300 ${fieldClassName}`,
-    placeholder,
-    onChange,
-    ...others
-  }
-  if (value){
-    inputProps.value = value
+export const Field = ({ className, label, type, placeholder, children, defaultValue, value, fieldClassName, ...others }: FieldProps) => {
+  const valueProp: any = {}
+  if (value) {
+    valueProp.value = value;
   }
   return (
     <label className={`block mt-2 ${className}`}>
@@ -278,9 +273,14 @@ export const Field = function ({ className, label, type, placeholder, children, 
       {children ? (
         <div className={fieldClassName}>{children}</div>
       ) : (
-        <label>
-          <SearchInput {...inputProps} />
-        </label>
+        <input
+          type={type}
+          className={`form-input mt-1 block w-full p-2 border rounded-md border-gray-300 ${fieldClassName}`}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          {...valueProp}
+          {...others}
+        />
       )}
     </label>
   );

@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <div className="p-4">
-      <h3>Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip, ProgressBar.</h3>
+      <h3>Playground: Button, Dropdown, Accordion, Modal, Toast, Form Field, Spinner, Tooltip, ProgressBar, SearchInput and more. Work on responsive / mobile screens.</h3>
       <p>
         Star this on Github ★ <a href="https://github.com/ngduc/portable-react">Back to portable-react</a>
       </p>
@@ -60,7 +60,7 @@ const App = () => {
           <ProgressBar total={100} value={25} />
 
           <Field label="Name" name="name" defaultValue="John" autoFocus={true} />
-          {/* <Field label="Email*" type="email" placeholder="john@email.com" required={true} /> */}
+          <Field label="Email*" type="email" placeholder="john@email.com" required={true} />
           <Field label="Birthday" type="date" name="birthday" placeholder="" />
           <Field label="Favourite Color" name="color" className="my-2" fieldClassName="inline space-x-4 ml-4">
             <label>
