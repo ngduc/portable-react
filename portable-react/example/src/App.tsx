@@ -15,7 +15,7 @@ const App = () => {
         Star this on Github ★ <a href="https://github.com/ngduc/portable-react">Back to portable-react</a>
       </p>
 
-      <div className="space-y-4 mt-2">
+      <div className="space-y-4 mt-6">
         <div className="lg:w-1/6">
           <Accordion label="Accordion" openValue={true}>
             <div>Some Content</div>
@@ -23,14 +23,16 @@ const App = () => {
         </div>
 
         <Tooltip content="Tooltip: Show Modal">
-          <Button onClick={() => setModalShowed(true)}>Show Modal</Button>
+          <Button primary onClick={() => setModalShowed(true)}>
+            Show Modal
+          </Button>
         </Tooltip>
 
         <Button className="ml-4" data-id="any-testid" onClick={() => setToastShowed(true)}>
           Show Toast
         </Button>
 
-        <Button primary className="ml-4" isLoading={isLoading} onClick={() => setIsLoading(true)}>
+        <Button className="ml-4" isLoading={isLoading} onClick={() => setIsLoading(true)}>
           Show Spinner
         </Button>
 
@@ -47,14 +49,20 @@ const App = () => {
           <SearchInput value={''} placeholder={'Search...'} onSearch={console.log} />
         </div>
 
-        <form className="lg:w-1/6 sm:w-full p-4 border bg-gray-100">
-
+        <form
+          className="lg:w-1/3 sm:w-full p-4 border bg-gray-100"
+          onSubmit={(ev) => {
+            ev.preventDefault();
+            const formData = new FormData(ev.currentTarget as HTMLFormElement);
+            alert(JSON.stringify(Object.fromEntries(formData)));
+          }}
+        >
           <ProgressBar total={100} value={25} />
 
-          <Field label="Name" defaultValue="John" autoFocus={true} />
-          <Field label="Email*" type="email" placeholder="john@email.com" required={true} />
-          <Field label="Birthday" type="date" placeholder="" />
-          <Field label="Favourite Color" className="my-2" fieldClassName="inline space-x-4 ml-4">
+          <Field label="Name" name="name" defaultValue="John" autoFocus={true} />
+          {/* <Field label="Email*" type="email" placeholder="john@email.com" required={true} /> */}
+          <Field label="Birthday" type="date" name="birthday" placeholder="" />
+          <Field label="Favourite Color" name="color" className="my-2" fieldClassName="inline space-x-4 ml-4">
             <label>
               <input type="radio" name="color" value="RED" /> Red
             </label>
@@ -66,7 +74,7 @@ const App = () => {
             Submit
           </Button>
           <Button className="ml-2" type="reset">
-            Clear
+            Reset
           </Button>
         </form>
       </div>

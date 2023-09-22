@@ -1,11 +1,20 @@
 # DEV
 
-### Development
+```
+$ yarn
+$ yarn start        (dev)
 
-- cd portable-react, then: yarn start
-- cd portable-react/example, then: yarn start
+$ cd example
+$ yarn
+$ yarn start        (example uses yarn link in package.json to import components)
+```
 
 ### Publish
 
 - update version in package.json
 - run $ npm publish
+
+### History
+
+- 09/21/23: upgraded & fixed many bugs;
+  - backend works: yarn build, yarn start; example works: yarn dev
