@@ -60,7 +60,7 @@ const App = () => {
           <ProgressBar total={100} value={25} />
 
           <Field label="Name" name="name" defaultValue="John" autoFocus={true} />
-          <Field label="Email*" type="email" placeholder="john@email.com" required={true} />
+          <Field label="Email*" name="email" type="email" placeholder="john@email.com" required={true} />
           <Field label="Birthday" type="date" name="birthday" placeholder="" />
           <Field label="Favourite Color" name="color" className="my-2" fieldClassName="inline space-x-4 ml-4">
             <label>
