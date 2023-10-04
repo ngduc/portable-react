@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState, useEffect } from 'react';
+import React, { CSSProperties, useState, useEffect, useRef } from 'react';
 import styles from './styles.module.css';
 
 type BaseProps = {
@@ -167,6 +167,16 @@ export const Modal = ({
   cancelLabel?: React.ReactElement | string;
   confirmLabel?: React.ReactElement | string;
 }) => {
+  useEffect(() => {
+    const closeOnEsc = (event: any) => {
+        if (event.keyCode === 27) { // '27' is ESC key code
+          onCancel ? onCancel() : ''; // function to close the modal
+        }
+    };
+    window.addEventListener('keydown', closeOnEsc); // add the keyboard listener
+    return () => window.removeEventListener('keydown', closeOnEsc);
+  }, []); // re-run the effect whenever isOpen or onClose changes
+
   return (
     <div className={`fixed z-10 inset-0 overflow-y-auto ${className}`} aria-labelledby="modal-title" role="dialog" aria-modal="true" {...others}>
       <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -230,12 +240,13 @@ export const Toast = ({ className, success, error, title, content, icon, onDismi
   } else if (error) {
     cn = `${base} border-red-200`;
   }
-  const timerRef = React.useRef(0);
+  const timerRef: { current: NodeJS.Timeout | null } = useRef(null);
+
   React.useEffect(() => {
     if ((autoDismiss || 0) > 0) {
       timerRef.current = setTimeout(() => (onDismiss ? onDismiss() : ''), autoDismiss);
     }
-    return () => clearTimeout(timerRef.current);
+    return () => clearTimeout(timerRef.current as NodeJS.Timeout);
   }, []);
 
   return (
