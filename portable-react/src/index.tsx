@@ -198,7 +198,7 @@ export const Modal = ({
               </div>
             </div>
           </div>
-          <div className="mb-4 px-4 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="mb-4 px-4 flex flex-row-reverse">
             {onConfirm && (
               <Button primary onClick={onConfirm} width={100}>
                 {confirmLabel || 'OK'}
