@@ -1,12 +1,13 @@
 # DEV
 
 ```
+$ cd portable-react
 $ yarn
 $ yarn start        (dev)
 
 $ cd example
 $ yarn
-$ yarn start        (example uses yarn link in package.json to import components)
+$ yarn dev          (example uses yarn link in package.json to import components)
 ```
 
 ### Publish
