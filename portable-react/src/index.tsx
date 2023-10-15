@@ -357,7 +357,7 @@ export const SearchInput = ({ value, placeholder = 'Search...', debounceMs = 300
   };
   return (
     <div className="">
-      <Field label={''} defaultValue={value} value={text} placeholder={placeholder} style={{ paddingLeft: 38 }} onChange={onChange} {...others} />
+      <Field role="search" label={''} defaultValue={value} value={text} placeholder={placeholder} style={{ paddingLeft: 38 }} onChange={onChange} {...others} />
       <Icons.Search style={{ marginTop: -32, marginLeft: 10, color: '#aaa' }} />
       {/* <Icons.Cross className="absolute top-3 right-2 cursor-pointer" style={{ color: '#aaa' }} onClick={onClickClear} /> */}
     </div>
