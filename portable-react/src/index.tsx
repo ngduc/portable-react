@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState, useEffect, useRef, MouseEvent } from 'react';
+import React, { CSSProperties, useState, useEffect, useRef } from 'react';
 import styles from './styles.module.css';
 
 type BaseProps = {
@@ -104,21 +104,32 @@ export const Button = ({
 };
 
 /* <Dropdown label={'name'}><Child1 />...</Dropdown> */
-type DropdownProps = BaseProps & { label?: React.ReactElement | string; itemClassName?: string, onSelect?: (event: MouseEvent<HTMLLIElement, MouseEvent>) => void };
-export const Dropdown = ({ className, label = 'label', itemClassName, onSelect, children, ...others }: DropdownProps) => {
+type DropdownProps = BaseProps & {
+  label?: React.ReactElement | string;
+  itemClassName?: string;
+  onSelect?: (ev: React.MouseEvent<HTMLElement>) => void;
+};
+export const Dropdown = ({
+  className,
+  label = 'label',
+  itemClassName,
+  onSelect,
+  children,
+  ...others
+}: DropdownProps) => {
   return (
     <div className={className} {...others}>
       <div className={`${styles.dropdown} inline-block relative`}>
-        <button className="py-2 px-4 rounded inline-flex items-center rounded-md border border-gray-300">
+        <button className="px-4 rounded inline-flex items-center rounded-md">
           <span className="mr-1">{label}</span>
           <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
           </svg>
         </button>
-        <ul className={`${styles.dropdownMenu} absolute hidden text-gray-700 pt-1`}>
+        <ul className={`${styles.dropdownMenu} absolute hidden text-gray-700 pt-1 z-10`}>
           {React.Children.map(children, (child: any, idx) => (
-            <li key={idx} className={itemClassName} onClick={ev => onSelect ? onSelect(ev) : ''}>
-              <span className="rounded-b bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap cursor-pointer">
+            <li key={idx} className={itemClassName} onClick={(ev) => (onSelect ? onSelect(ev) : '')}>
+              <span className="bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap cursor-pointer">
                 {child}
               </span>
             </li>
@@ -210,7 +221,8 @@ export const Modal = ({
   onConfirm,
   cancelLabel,
   confirmLabel,
-  showButtons = true,
+  showConfirm = true,
+  showCancel = true,
   ...others
 }: BaseProps & {
   bodyClassName?: string;
@@ -220,7 +232,8 @@ export const Modal = ({
   onConfirm?: () => void;
   cancelLabel?: React.ReactElement | string;
   confirmLabel?: React.ReactElement | string;
-  showButtons?: boolean;
+  showConfirm?: boolean;
+  showCancel?: boolean;
 }) => {
   useEffect(() => {
     const closeOnEsc = (event: any) => {
@@ -263,20 +276,18 @@ export const Modal = ({
               </div>
             </div>
           </div>
-          {showButtons && (
-            <div className="mb-4 px-4 flex flex-row-reverse">
-              {onConfirm && (
-                <Button primary onClick={onConfirm} width={100}>
-                  {confirmLabel || 'OK'}
-                </Button>
-              )}
-              {onCancel && (
-                <Button className="mr-2" onClick={onCancel} width={100}>
-                  {cancelLabel || 'Cancel'}
-                </Button>
-              )}
-            </div>
-          )}
+          <div className="mb-4 px-4 flex flex-row-reverse">
+            {showConfirm && onConfirm && (
+              <Button primary onClick={onConfirm} width={100}>
+                {confirmLabel || 'OK'}
+              </Button>
+            )}
+            {showCancel && onCancel && (
+              <Button className="mr-2" onClick={onCancel} width={100}>
+                {cancelLabel || 'Cancel'}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
