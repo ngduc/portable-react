@@ -22,7 +22,7 @@ const App = () => {
           </Accordion>
         </div>
 
-        <Tooltip content="Tooltip: Show Modal">
+        <Tooltip id="tt1" content="Tooltip: Show Modal">
           <Button primary onClick={() => setModalShowed(true)}>
             Show Modal
           </Button>

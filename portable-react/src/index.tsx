@@ -2,6 +2,7 @@ import React, { CSSProperties, useState, useEffect, useRef } from 'react';
 import styles from './styles.module.css';
 
 type BaseProps = {
+  id?: string;
   children?: any;
   className?: string;
   onClick?: () => void;
@@ -13,27 +14,12 @@ type BaseProps = {
 /* Icons.IconName */
 export const Icons = {
   Cross: ({ className, ...others }: BaseProps) => (
-    <svg
-      className={`fill-current text-gray-600 ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      {...others}
-    >
+    <svg className={`fill-current text-gray-600 ${className}`} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" {...others}>
       <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
     </svg>
   ),
   Search: ({ className, ...others }: BaseProps) => (
-    <svg
-      className={`fill-none text-gray-600 ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      {...others}
-    >
+    <svg className={`fill-none text-gray-600 ${className}`} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" {...others}>
       <path
         d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
         stroke="currentColor"
@@ -41,15 +27,9 @@ export const Icons = {
         strokeLinecap="round"
         strokeLinejoin="round"
       ></path>
-      <path
-        d="M22 22L20 20"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
+      <path d="M22 22L20 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
     </svg>
-  )
+  ),
 };
 
 export function useDebounce<T>(value: T, delay?: number): T {
@@ -69,17 +49,7 @@ export type ButtonProps = BaseProps & {
   primary?: boolean;
   width?: number;
 };
-export const Button = ({
-  className,
-  type,
-  onClick,
-  children,
-  isLoading,
-  primary,
-  width,
-  style,
-  ...others
-}: ButtonProps) => {
+export const Button = ({ className, type, onClick, children, isLoading, primary, width, style, ...others }: ButtonProps) => {
   const common = `w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`;
   let cn = `${common} hover:bg-gray-200 focus:bg-gray-200`;
   if (primary) {
@@ -89,13 +59,7 @@ export const Button = ({
   }
   return (
     <span className="inline-flex items-center">
-      <button
-        type={type || 'button'}
-        onClick={onClick}
-        className={`${cn} ${className}`}
-        style={{ width: width || 'auto', ...style }}
-        {...others}
-      >
+      <button type={type || 'button'} onClick={onClick} className={`${cn} ${className}`} style={{ width: width || 'auto', ...style }} {...others}>
         {children}
       </button>
       {isLoading ? <Spinner /> : null}
@@ -109,14 +73,7 @@ type DropdownProps = BaseProps & {
   itemClassName?: string;
   onSelect?: (ev: React.MouseEvent<HTMLElement>) => void;
 };
-export const Dropdown = ({
-  className,
-  label = 'label',
-  itemClassName,
-  onSelect,
-  children,
-  ...others
-}: DropdownProps) => {
+export const Dropdown = ({ className, label = 'label', itemClassName, onSelect, children, ...others }: DropdownProps) => {
   return (
     <div className={className} {...others}>
       <div className={`${styles.dropdown} inline-block relative`}>
@@ -129,9 +86,7 @@ export const Dropdown = ({
         <ul className={`${styles.dropdownMenu} absolute hidden text-gray-700 pt-1 z-10`}>
           {React.Children.map(children, (child: any, idx) => (
             <li key={idx} className={itemClassName} onClick={(ev) => (onSelect ? onSelect(ev) : '')}>
-              <span className="bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap cursor-pointer">
-                {child}
-              </span>
+              <span className="bg-gray-100 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap cursor-pointer">{child}</span>
             </li>
           ))}
         </ul>
@@ -142,19 +97,9 @@ export const Dropdown = ({
 
 /* <Spinner /> */
 export const Spinner = ({ className, ...others }: BaseProps) => (
-  <svg
-    className={`animate-spin ml-2 mr-2 h-5 w-5 text-gray ${className}`}
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    {...others}
-  >
+  <svg className={`animate-spin ml-2 mr-2 h-5 w-5 text-gray ${className}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" {...others}>
     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-    <path
-      className="opacity-75"
-      fill="currentColor"
-      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-    ></path>
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
   </svg>
 );
 
@@ -198,11 +143,7 @@ export const Accordion = ({
               <span>{open ? '▼' : '▶'}</span>
             </div>
           </button>
-          <div
-            className={`relative overflow-hidden max-h-0 ${openCount.current > 1 ? 'transition-all duration-700' : ''}`}
-            x-ref="container1"
-            style={{ maxHeight: open ? 200 : 0 }}
-          >
+          <div className={`relative overflow-hidden max-h-0 ${openCount.current > 1 ? 'transition-all duration-700' : ''}`} x-ref="container1" style={{ maxHeight: open ? 200 : 0 }}>
             {children}
           </div>
         </li>
@@ -246,19 +187,9 @@ export const Modal = ({
   }, []); // re-run the effect whenever isOpen or onClose changes
 
   return (
-    <div
-      className={`fixed z-10 inset-0 overflow-y-auto ${className}`}
-      aria-labelledby="modal-title"
-      role="dialog"
-      aria-modal="true"
-      {...others}
-    >
+    <div className={`fixed z-10 inset-0 overflow-y-auto ${className}`} aria-labelledby="modal-title" role="dialog" aria-modal="true" {...others}>
       <div className="flex items-end pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-          aria-hidden="true"
-          onClick={onCancel}
-        ></div>
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={onCancel}></div>
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
           &#8203;
         </span>
@@ -305,17 +236,7 @@ export type ToastProps = BaseProps & {
   onDismiss?: () => void;
   autoDismiss?: number; // in (ms)
 };
-export const Toast = ({
-  className,
-  success,
-  error,
-  title,
-  content,
-  icon,
-  onDismiss,
-  autoDismiss,
-  ...others
-}: ToastProps) => {
+export const Toast = ({ className, success, error, title, content, icon, onDismiss, autoDismiss, ...others }: ToastProps) => {
   const svgIcon = icon || (
     <svg className="h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
       <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
@@ -361,17 +282,7 @@ export type FieldProps = BaseProps & {
   defaultValue?: string;
   children?: any;
 };
-export const Field = ({
-  className,
-  label,
-  type,
-  placeholder,
-  children,
-  defaultValue,
-  value,
-  fieldClassName,
-  ...others
-}: FieldProps) => {
+export const Field = ({ className, label, type, placeholder, children, defaultValue, value, fieldClassName, ...others }: FieldProps) => {
   const valueProp: any = {};
   if (value) {
     valueProp.value = value;
@@ -397,14 +308,12 @@ export const Field = ({
 // html: https://tailwindcss-custom-forms.netlify.app
 
 // <Tooltip content="Email">...</Tooltip>
-export const Tooltip = ({ content, className, children }: BaseProps & { content: any }) => {
+export const Tooltip = ({ id, content, className, children }: BaseProps & { content: any }) => {
   return (
-    <div className={`relative inline-flex flex flex-col items-center ${styles.group} ${className}`}>
+    <div id={id ? `${id}_container` : 'pr_tooltip_container'} aria-describedby={id ?? 'pr_tooltip'} className={`relative inline-flex flex flex-col items-center ${styles.group} ${className}`}>
       {children}
-      <div className={`absolute bottom-0 flex flex-col items-center hidden mb-10 ${styles.groupHover}`}>
-        <span className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap rounded-md bg-black shadow-lg">
-          {content}
-        </span>
+      <div role="tooltip" className={`absolute bottom-0 flex flex-col items-center hidden mb-10 ${styles.groupHover}`}>
+        <span id={id ?? 'pr_tooltip'} className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap rounded-md bg-black shadow-lg">{content}</span>
         <div className={`w-3 h-3 -mt-2 bg-black ${styles.rotate45}`}></div>
       </div>
     </div>
@@ -413,21 +322,19 @@ export const Tooltip = ({ content, className, children }: BaseProps & { content:
 };
 
 // <ProgressBar total={100} value={30} />
-export const ProgressBar = ({
-  value,
-  total,
-  valueStyle,
-  totalStyle
-}: {
-  value: number;
-  total: number;
-  valueStyle?: CSSProperties;
-  totalStyle?: CSSProperties;
-}) => {
+export const ProgressBar = ({ value, total, valueStyle, totalStyle, label }: { value: number; total: number; valueStyle?: CSSProperties; totalStyle?: CSSProperties; label?: string }) => {
   const pct = (value / total) * 100;
   return (
     <div className={styles.progressBar} style={{ ...totalStyle }}>
-      <div className={styles.progressBar} style={{ width: `${pct}%`, backgroundColor: '#00c300', ...valueStyle }} />
+      <div
+        className={styles.progressBar}
+        role="meter"
+        aria-valuenow={value}
+        aria-valuemin={0}
+        aria-valuemax={total}
+        aria-labelledby={label}
+        style={{ width: `${pct}%`, backgroundColor: '#00c300', ...valueStyle }}
+      />
     </div>
   );
 };
@@ -439,13 +346,7 @@ export type SearchInputProps = {
   onSearch?: (text: string) => void;
 };
 // <SearchInput placeholder="Type to search..." onSearch={(text) => {}} />
-export const SearchInput = ({
-  value,
-  placeholder = 'Search...',
-  debounceMs = 300,
-  onSearch,
-  ...others
-}: SearchInputProps) => {
+export const SearchInput = ({ value, placeholder = 'Search...', debounceMs = 300, onSearch, ...others }: SearchInputProps) => {
   const [text, setText] = useState('');
   const debouncedText = useDebounce(text, debounceMs);
   useEffect(() => {
@@ -456,15 +357,7 @@ export const SearchInput = ({
   };
   return (
     <div className="">
-      <Field
-        label={''}
-        defaultValue={value}
-        value={text}
-        placeholder={placeholder}
-        style={{ paddingLeft: 38 }}
-        onChange={onChange}
-        {...others}
-      />
+      <Field label={''} defaultValue={value} value={text} placeholder={placeholder} style={{ paddingLeft: 38 }} onChange={onChange} {...others} />
       <Icons.Search style={{ marginTop: -32, marginLeft: 10, color: '#aaa' }} />
       {/* <Icons.Cross className="absolute top-3 right-2 cursor-pointer" style={{ color: '#aaa' }} onClick={onClickClear} /> */}
     </div>
