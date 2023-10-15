@@ -13,7 +13,7 @@ $ yarn dev          (example uses yarn link in package.json to import components
 ### Publish
 
 - update version in package.json
-- run $ npm publish
+- run `$ npm run build` then `$ npm publish`
 
 ### History
 
